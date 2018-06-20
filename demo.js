@@ -96,7 +96,7 @@ ReactDOM.render(
     document.getElementById("paramValidation")
 );
 
-/* 获取真实的DOM节点 */
+/* find a DOM node 找到真实的dom */
 
 var TrueDom = React.createClass({
     render: function() {
