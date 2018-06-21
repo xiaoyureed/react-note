@@ -1,5 +1,5 @@
  /* text/babel表示为jsx语法， 和js不兼容 */
-/* ReactDOM.render()函数, jsx语法: html直接写在js中（遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析） */
+/* ReactDOM.render()函数: 将jsx模板转为html并渲染到真实dom中, jsx语法: html直接写在js中（遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析） */
 ReactDOM.render(
     <h1>xxx</h1>,
     document.getElementById("render")
@@ -21,6 +21,7 @@ ReactDOM.render(
     ,
     document.getElementById("array")
 );
+/* 这里会将数组数据连起来 */
 ReactDOM.render(
     <div>
         {namesHtml}
@@ -43,6 +44,7 @@ ReactDOM.render(
 );
 
 /* 遍历子元素, this.props.children获取到所有子元素, React.Children.map遍历 */
+/* this.props.children可能有3种可能值 undefined: 没有子node, object: 仅仅一个子node, array: 多个子node */
 var ChildNode = React.createClass({
     render: function() {
         return (
