@@ -3,9 +3,13 @@
 var xxx = 'xiaoyu';
 var props = {
     className: "main",
+    style: 'color: "red"'
+};
+var style = {
+    color: "red"
 };
 ReactDOM.render(
-    <h1 {...props} >{xxx}</h1>,// 如果是{'xxx'}, 结果不会替换
+    <h1 {...props} style={style} >{xxx}</h1>,// 如果是{'xxx'}, 结果不会替换
     document.getElementById("render")
 );
 
@@ -25,7 +29,7 @@ ReactDOM.render(
     ,
     document.getElementById("array")
 );
-/* 这里会将数组数据连起来 */
+/* 这里会将数组数据连起来, 这里没有index, 会警告, 不过不影响 */
 ReactDOM.render(
     <div>
         {namesHtml}
@@ -36,11 +40,27 @@ ReactDOM.render(
 /* 组件开发 */
 
 /* 组件类的第一个字母必须大写，否则会报错，比如HelloMessage不能写成helloMessage。另外，组件类只能包含一个顶层标签，否则也会报错。 */
-var HelloMsg = React.createClass({
+/* var HelloMsg = React.createClass({
     render: function() {
         return <h1>Hello, {this.props.name}</h1>;
     }
-});
+}); */
+/* class HelloMsg extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    render() {
+        return (
+            <h1>Hello, {this.props.name}</h1>
+        );
+    }
+} */
+// Functional component , 单纯的ui, 没有 state, 没有ref, 仅仅一个构造函数
+const HelloMsg = (props) => (
+    // 注意这边 props 是传入函式的参数，因此取用 props 不用加 this
+    <h1>Hello, {props.name}</h1>
+);
 ReactDOM.render(
     <HelloMsg name="xiaoyu"></HelloMsg>
     ,
@@ -49,7 +69,7 @@ ReactDOM.render(
 
 /* 遍历子元素, this.props.children获取到所有子元素, React.Children.map遍历 */
 /* this.props.children可能有3种可能值 undefined: 没有子node, object: 仅仅一个子node, array: 多个子node */
-var ChildNode = React.createClass({
+/* var ChildNode = React.createClass({
     render: function() {
         return (
             <ol>
@@ -64,7 +84,38 @@ var ChildNode = React.createClass({
             </ol>
         );
     }
-});
+}); */
+/* class ChildNode extends React.Component {
+
+    // 这里为了方便, 没有 constructor, 因为没有设置props 
+
+    render() {
+        return (
+            <ol>
+                {
+                    // React.Children 工具类, 还有很多工具方法, 参见文档
+                    React.Children.map(this.props.children, function(child) {
+                        return (
+                            <li>{child}</li>
+                        );
+                    })
+                }
+            </ol>
+        );
+    }
+} */
+const ChildNode = (props) => (
+    <ol>
+        {
+            // React.Children 工具类, 还有很多工具方法, 参见文档
+            React.Children.map(props.children, function(child) {
+                return (
+                    <li>{child}</li>
+                );
+            })
+        }
+    </ol>
+);
 ReactDOM.render(
     <ChildNode>
         <div>test childNode div1</div>
@@ -76,26 +127,39 @@ ReactDOM.render(
 /* 参数校验 */
 
 /* getDefaultProps()设置props的默认值 */
-var ValidNode = React.createClass({
+/* var ValidNode = React.createClass({
     render: function() {
-       /*  React.Children.map(this.props.child, function(child){
-
-        }); */
         return (
             <h1>{this.props.title}</h1>
         );
     },
     propTypes: {
-        title: React.PropTypes.string.isRequired
+        title: React.PropTypes.string.isRequired// 必须, 且为string类型
     },
     getDefaultProps : function () {
         return {
           title : 'Hello World'
         };
     },
-});
+}); */
+/* class ValidNode extends React.Component {
+    render() {
+        return (
+            <h1>{this.props.title}</h1>
+        );
+    }
+} */
+const ValidNode = (props) => (
+    <h1>{props.title}</h1>
+);
+ValidNode.propTypes = {
+    title: React.PropTypes.string.isRequired// 必须, 且为string类型
+};
+ValidNode.defaultProps = {
+    title : 'Hello World'
+};
 var data = 123;
-/* 此时会有警告, warning: Failed propType: Invalid prop `title` of type `number` supplied to `MyTitle`, expected `string`. */
+/* 此时会有警告, 但不影响 -- warning: Failed propType: Invalid prop `title` of type `number` supplied to `MyTitle`, expected `string`. */
 ReactDOM.render(
     <ValidNode title={data}>
     </ValidNode>
@@ -105,7 +169,7 @@ ReactDOM.render(
 
 /* find a DOM node 找到真实的dom */
 
-var TrueDom = React.createClass({
+/* var TrueDom = React.createClass({
     render: function() {
         return (
             <div>
@@ -115,10 +179,29 @@ var TrueDom = React.createClass({
         );
     },
     handleClick: function() {
-        /* onclick 事件保证了只有虚拟dom插入document后才会使用this.refs属性 */
+        // onclick 事件保证了只有虚拟dom插入document后才会使用this.refs属性, 就像放入到了 lifeCycle方法componentDidMount中 
         this.refs.textInput.focus();
     }
-});
+}); */
+class TrueDom extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        // 与 ES5 React.createClass({}) 不同的是 component 内自定义的方法需要自行绑定到 this context, 如果去掉, 会找不到相应的refs
+        this.handleClick = this.handleClick.bind(this);
+    }
+    render() {
+        return (
+            <div>
+                <input type="text" ref="textInput" />
+                <input type="button" value="click to focus" onClick={this.handleClick} />
+            </div>
+        );
+    }
+    handleClick() {
+        this.refs.textInput.focus();
+    }
+}
 ReactDOM.render(
     <TrueDom></TrueDom>
     ,
@@ -126,26 +209,50 @@ ReactDOM.render(
 );
 
 /* 状态 this.state */
-var MyState = React.createClass({
+
+/* var MyState = React.createClass({
     getInitialState: function() {
-        /* 定义初始状态, getInitialState 方法用于定义初始状态，也就是一个对象，这个对象可以通过 this.state 属性读取 */
+        // 定义初始状态的state, getInitialState 方法用于定义初始状态，也就是一个对象，这个对象可以通过 this.state 属性读取 
         return {
             liked: false
         };
     },
     render: function() {
         var text = this.state.liked ? "like" : "还没有开始喜欢";
-        /* 样式: 第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象 */
+        // 样式: 第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象 
         return (
             <p onClick={this.handleClick}>你<span style={{color: "red"}} >{text}</span>这里(点击切换)</p>
         );
     },
     handleClick: function() {
+        // 改变state
         this.setState({
             liked: !this.state.liked
         });
     }
-});
+}); */
+class MyState extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            liked: false
+        };
+        
+    }
+    render() {
+        var text = this.state.liked ? "like" : "还没有开始喜欢";
+        // 样式: 第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象 
+        return (
+            <p onClick={this.handleClick}>你<span style={{color: "red"}} >{text}</span>这里(点击切换)</p>
+        );
+    }
+    handleClick() {
+        this.setState({
+            liked: !this.state.liked
+        });
+    }
+}
 ReactDOM.render(
     <MyState></MyState>
     ,
@@ -154,20 +261,19 @@ ReactDOM.render(
 
 /* 表单 */
 
-var Form = React.createClass({
+/* var Form = React.createClass({
     getInitialState: function() {
         return {
             value: "hello"
         };
     },
-    handleChange: function(event) {
-        /* 处理变化事件, 注意有方法参数: event, event.target.value 读取用户输入的值 */
+    handleChange: function(event) {// 处理变化事件, 注意有方法参数: event, event.target.value 读取用户输入的值 
         this.setState({
             value: event.target.value
         });
     },
     render: function() {
-        /* this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。 */
+        // this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。 
         var value = this.state.value;
         return (
             <div>
@@ -176,7 +282,31 @@ var Form = React.createClass({
             </div>
         );
     }
-});
+}); */
+class Form extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: "hello"
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event) {// 有event参数, 否则报错: ... is changing a controlled input of type text to be uncontrolled
+        this.setState({
+            value: event.target.value
+        });
+    }
+    render() {
+        // this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。 
+        var value = this.state.value;
+        return (
+            <div>
+                <input type="text" value={value} onChange={this.handleChange} />
+                <p>{value}</p>
+            </div>
+        );
+    }
+}
 ReactDOM.render(
     <Form></Form>
     ,
@@ -205,7 +335,7 @@ componentWillReceiveProps(object nextProps)：已加载组件收到新的参数�
 shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用
 */
 
-var Hello = React.createClass({
+/* var Hello = React.createClass({
     getInitialState: function () {
       return {
         opacity: 1.0
@@ -213,7 +343,7 @@ var Hello = React.createClass({
     },
   
     componentDidMount: function () {
-        /* 设定 定时器 */
+        // 设定 定时器 
       this.timer = setInterval(function () {
         var opacity = this.state.opacity;
         opacity -= .05;
@@ -223,32 +353,62 @@ var Hello = React.createClass({
         this.setState({
           opacity: opacity
         });
-      }.bind(this), 100);/* 每隔100ms, 就重新设置组件的透明度，从而引发重新渲染 */
-      /* 回调函数一定要加.bind(this)方法，原因是：在setInterval()中定义的回调函数，是在同步代码执行完后，随着事件触发来异步执行的，
-      此时函数的上下文Context已经由定义该函数的Script文件变为全局变量，
-      如果不通过bind(this)来指定由组件实例作为上下文的话，回调函数中的this会指向全局变量中的Window变量，显然不是我们想要的结果。*/
+      }.bind(this), 100);// 每隔100ms, 就重新设置组件的透明度，从而引发重新渲染 
+      // 回调函数一定要加.bind(this)方法，原因是：在setInterval()中定义的回调函数，是在同步代码执行完后，随着事件触发来异步执行的，
+      // 此时函数的上下文Context已经由定义该函数的Script文件变为全局变量，
+      // 如果不通过bind(this)来指定由组件实例作为上下文的话，回调函数中的this会指向全局变量中的Window变量，显然不是我们想要的结果。
 
     },
   
     render: function () {
-        /* 样式: 写成 style="opacity:{this.state.opacity};" 是错误的 */
+        // 样式: 写成 style="opacity:{this.state.opacity};" 是错误的 
       return (
-        <div style={{opacity: this.state.opacity}}>
-          Hello {this.props.name}
+        <div>
+          Hello {this.props.name} <span style={{opacity: this.state.opacity}}>👈</span>
         </div>
       );
     }
-  });
-  
-  ReactDOM.render(
-    <Hello name="world"/>,
-    document.getElementById("lifeCycle")
-  );
+}); */
+class Hello extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            opacity: 1.0
+        };
+        this.intervalCallback = this.intervalCallback.bind(this);// 放在这里bind
+    }
+    render() {
+        return (
+            <div>
+              Hello {this.props.name} <span style={{opacity: this.state.opacity}}>👈</span>
+            </div>
+          );
+    }
+    componentDidMount() {
+        this.timer = setInterval(this.intervalCallback, 100);// 需要bind到当前组件(默认是绑定到全局window), 否则报错: Cannot read property 'opacity' of undefined
+
+    }
+    intervalCallback() {
+        var opacity = this.state.opacity;
+        opacity -= .05;
+        if (opacity < 0.1) {
+            opacity = 1.0;
+        }
+        this.setState({
+            opacity: opacity
+        });
+    }
+}
+ReactDOM.render(
+<Hello name="world"/>,
+document.getElementById("lifeCycle")
+);
 
 
 /* Ajax */
 
-var UserGist = React.createClass({
+// var $ = require('jquery'); // 通过npm使用jq报错, 存疑
+/* var UserGist = React.createClass({
     getInitialState: function() {
       return {
         username: '',
@@ -265,7 +425,7 @@ var UserGist = React.createClass({
             lastGistUrl: lastGist.html_url
           });
         }
-      }.bind(this));/* 若不通过.bind(this)指定示例作为上下文的话，当回调函数执行时上下文Context会被设置为全局变量，这时候this就会指向Window变量。 */
+      }.bind(this));// 若不通过.bind(this)指定示例作为上下文的话，当回调函数执行时上下文Context会被设置为全局变量，这时候this就会指向Window变量。 
     },
   
     render: function() {
@@ -281,4 +441,110 @@ var UserGist = React.createClass({
   ReactDOM.render(
     <UserGist source="https://api.github.com/users/octocat/gists" />,
     document.getElementById("ajaxDemo")
-  );
+  ); */
+
+  /* 一个小小demo: todoListApp */
+
+const TodoListCmp = (props) => (
+    <ul>
+        {
+            props.items.map((item) => (
+                <li key={item.id}>{item.text}</li>
+            ))
+        }
+    </ul>
+);
+class TodoListApp extends React.Component {
+    constructor(props) {
+		super(props);
+		this.onChange = this.onChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.state = {
+			items: [],
+			text: '',
+		}
+	}
+	onChange(event) {
+    	this.setState({
+            text: event.target.value
+        });
+	}
+	handleSubmit(event) {
+        event.preventDefault();// 取消事件的默认动作(默认会刷新)。自定义提交动作的话, 一般加上
+        // 添加一个item到list
+    	const nextItems = this.state.items.concat(
+            [
+                {
+                    text: this.state.text, 
+                    id: Date.now()
+                }
+            ]
+        );
+    	const nextText = '';
+    	this.setState({
+            items: nextItems, 
+            text: nextText
+        });
+	}
+	render() {
+	    return (
+	      <div>
+	        <h3>TODO todoList/官方</h3>
+	        <TodoListCmp items={this.state.items} />
+	        <form onSubmit={this.handleSubmit}>
+	          <input onChange={this.onChange} value={this.state.text} />
+	          <button>{'添加第 #' + (this.state.items.length + 1) + '个'}</button>
+	        </form>
+	      </div>
+	    );
+	}
+}
+ReactDOM.render(<TodoListApp />, document.getElementById('todoList'));
+
+const MyOwnList = (props) => (
+    <ol>
+        {
+            props.items.map(
+                (item) => (
+                    <li key={item.id}>{item.value}</li>
+                )
+            )
+        }
+    </ol>
+);
+class MyOwnListApp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: []
+        };
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+    render() {
+        return (
+            <div>
+                <h3>MyOwnListApp</h3>
+                <MyOwnList items={this.state.items}></MyOwnList>
+                <form onSubmit={this.onSubmit}>
+                    <input type="text"/>
+                    <button >submit</button>
+                </form>
+            </div>
+        );
+    }
+    onSubmit(event) {
+        event.preventDefault();
+        /* this.state.items.push([{// 这样子ui不会自动redraw
+            id: Date.now(),
+            value: event.target[0].value
+        }]); */
+        this.setState({// 现在才会auto redraw
+            items: this.state.items.concat([{
+                id: Date.now(),
+                value: event.target[0].value
+            }])
+        });
+        event.target[0].value = '';// 清空
+    }
+}
+ReactDOM.render(<MyOwnListApp/>, document.getElementById("todoMyown"));

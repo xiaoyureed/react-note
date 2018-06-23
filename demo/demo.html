@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <!-- react用法示例, 直接引入了, webpack版本的在app目录下 -->
+    <!-- 需要在server中访问， 否则报跨域错误 -->
     <head>
             <link href="./demo.css" rel="stylesheet"/>
         <script src="./lib/react.js"></script><!-- core lib -->
@@ -20,9 +21,10 @@
         <div id="form"></div>
         <div id="lifeCycle"></div>
         <div id="ajaxDemo"></div>
+        <div id="todoList"></div>
+        <div id="todoMyown"></div>
 
         <!-- 只能是 text/babel -->
-        <!-- 需要在server中访问， 否则报跨域错误 -->
         <script src="./demo.js" type="text/babel">
         </script>
     </body>
