@@ -408,7 +408,7 @@ document.getElementById("lifeCycle")
 /* Ajax */
 
 // var $ = require('jquery'); // 通过npm使用jq报错, 存疑
-/* var UserGist = React.createClass({
+var UserGist = React.createClass({
     getInitialState: function() {
       return {
         username: '',
@@ -441,7 +441,7 @@ document.getElementById("lifeCycle")
   ReactDOM.render(
     <UserGist source="https://api.github.com/users/octocat/gists" />,
     document.getElementById("ajaxDemo")
-  ); */
+  );
 
   /* 一个小小demo: todoListApp */
 
@@ -465,7 +465,7 @@ class TodoListApp extends React.Component {
 		}
 	}
 	onChange(event) {
-    	this.setState({
+    	this.setState({// 这是一种获取表单内容的方法, 另一种方法是借助 refs属性
             text: event.target.value
         });
 	}
