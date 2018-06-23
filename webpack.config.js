@@ -1,8 +1,8 @@
-// 这边使用 HtmlWebpackPlugin，将 bundle 好的 <script> 插入到 body。${__dirname} 为 ES6 语法对应到 __dirname  
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');// 动态插入 bundle 好的 .js 档到 .index.html
+const path = require('path');
 
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: __dirname + '/app/index.html',
+  template: path.resolve(__dirname, 'app/index.html'),
   filename: 'index.html',
   inject: 'body',
 });
@@ -15,20 +15,26 @@ module.exports = {
   output: {
     path: `${__dirname}/dist`,
     filename: 'index_bundle.js',
-    publicPath: '/' // 虚拟目录, 默认"/", 表示编译后的文件在 localhost:8008/, 如果是/xx, 则在 localhost:8008/xx/
+    publicPath: '/', // 虚拟目录, 默认"/", 表示编译后的文件在 localhost:8008/, 如果是/xx, 则在 localhost:8008/xx/
   },
   module: {
-  	// loaders 则是放欲使用的 loaders，在这边是使用 babel-loader 将所有 .js（这边用到正则式）相关档案（排除了 npm 安装的套件位置 node_modules）转译成浏览器可以阅读的 JavaScript。preset 则是使用的 babel 转译规则，这边使用 react、es2015。若是已经单独使用 .babelrc 作为 presets 设定的话，则可以省略 query
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
+        // 使用 babel-loader 将所有 .js（排除了 npm 安装的套件位置 node_modules）转译。
+        test: /\.js$/, // 正则匹配
+        exclude: /node_modules/, // 排除
+        use: 'babel-loader', // 使用的 babel 转译规则，使用 react、es2015。
+        /* query: {// 若是已经单独使用 .babelrc 作为 presets 设定的话，则可以省略 query
           presets: ['es2015', 'react'],
-        },
-      }
-    ]
+        } */
+      },
+      {
+        test: /\.jsx$|\.js$/,
+        loader: 'eslint-loader',
+        include: `${__dirname}/app`,
+        exclude: /bundle\.js$/,
+      },
+    ],
   },
   // devServer 则是 webpack-dev-server 设定
   devServer: {
