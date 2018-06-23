@@ -1,7 +1,11 @@
  /* text/babel表示为jsx语法， 和js不兼容 */
 /* ReactDOM.render()函数: 将jsx模板转为html并渲染到真实dom中, jsx语法: html直接写在js中（遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析） */
+var xxx = 'xiaoyu';
+var props = {
+    className: "main",
+};
 ReactDOM.render(
-    <h1>xxx</h1>,
+    <h1 {...props} >{xxx}</h1>,// 如果是{'xxx'}, 结果不会替换
     document.getElementById("render")
 );
 
@@ -50,6 +54,7 @@ var ChildNode = React.createClass({
         return (
             <ol>
                 {
+                    // React.Children 工具类, 还有很多工具方法, 参见文档
                     React.Children.map(this.props.children, function(child) {
                         return (
                             <li>{child}</li>
