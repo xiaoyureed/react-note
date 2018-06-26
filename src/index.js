@@ -14,7 +14,10 @@ import ReactDOM from 'react-dom';
 // import ModalGallery from './router/ModalGallery';
 
 // components
-import AppIndex from './components/App';
+// import AppIndex from './components/App';
+
+// flux
+import App from './flux/index';
 
 // ReactDOM.render(<BasicExample />, document.getElementById('app'));
 // ReactDOM.render(<ParamExample />, document.getElementById('app'));
@@ -29,4 +32,5 @@ import AppIndex from './components/App';
 // ReactDOM.render(<RouteConfigExample />, document.getElementById('app'));
 // ReactDOM.render(<ModalGallery />, document.getElementById('app'));
 
-ReactDOM.render(<AppIndex />, document.getElementById('app'));
+// ReactDOM.render(<AppIndex />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

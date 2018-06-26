@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-
+/**
+ * demo: <Route path="/:user"></Route>
+ */
 const AmbiguousExample = () => (
   <Router>
     <div>
