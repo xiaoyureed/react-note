@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');// 动态插入 bundle 
 const path = require('path');
 
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: path.resolve(__dirname, 'app/index.html'),
+  template: path.resolve(__dirname, 'src/index.html'),
   filename: 'index.html',
   inject: 'body',
 });
@@ -10,7 +10,7 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
   // 档案起始点从 entry 进入，因为是阵列所以也可以是多个档案
   entry: [
-    './app/index.js',
+    './src/index.js',
   ],
   output: {
     path: `${__dirname}/dist`,
@@ -36,6 +36,7 @@ module.exports = {
       },
     ],
   },
+  devtool: 'inline-source-map',
   // devServer 则是 webpack-dev-server 设定
   devServer: {
     // contentBase: './dist',
