@@ -15,6 +15,7 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
+    // 组件 mount 后, 需要注册一个  listener, 碰到action, 更新state
     TodoStore.addChangeListener(
       () => (
         this.setState({

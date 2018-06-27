@@ -20,8 +20,7 @@ class TodoHeader extends Component {
 
   onAdd() {
     const { text } = this.state;
-    // 将text封装为action, 通过dispatcher注册
-    // 本质就是解耦的思想
+    // 希望改变state, 只能发出action, 这里传入text, 在内部封装为action
     TodoActions.addTodo(text);
     this.setState({
       text: '',

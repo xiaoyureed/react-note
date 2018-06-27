@@ -6,7 +6,9 @@ const store = {
   todos: [],
   editing: false,
 };
-
+/**
+ * 自定义的todo store, 管理 todo项
+ */
 class TodoStoreClass extends EventEmitter {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ class TodoStoreClass extends EventEmitter {
     this.store = store;
   }
 
+  // 设置 listener, ADD_TODO action发生时, call callback函数
   addChangeListener(callback) {
     this.on(ADD_TODO, callback);
   }
@@ -29,11 +32,14 @@ class TodoStoreClass extends EventEmitter {
 
 const TodoStore = new TodoStoreClass();
 
+/**
+ * 注册处理action的function: 根据不同的action.type, 选择合适的store进行后续操作
+ */
 AppDispatcher.register((action) => {
   switch (action.type) {
     case ADD_TODO:
       store.todos.push(action.payload.text);
-      TodoStore.emit(ADD_TODO);
+      TodoStore.emit(ADD_TODO); // 处理完后透过 emit 方法发出事件让监听的 Views Controller 知道
       break;
     default:
       return true;
