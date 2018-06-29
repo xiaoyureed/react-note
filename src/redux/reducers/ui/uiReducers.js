@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { TodoState } from '../../constants/models';
+import TodoState from '../../constants/models';
 
 const uiReducers = handleActions({
   SHOW: (state, { payload }) => (

@@ -1,14 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
-import createLogger from 'redux-logger';
-import Immutable from 'immutable';
+import { logger, createLogger } from 'redux-logger'; // https://github.com/evgenyrodionov/redux-logger
+// import Immutable from 'immutable';
 import rootReducer from '../reducers';
+// import todoState from '../constants/models';
 
-const initialState = Immutable.Map();
+// const initialState = Immutable.Map();
 
 const store = createStore(
   rootReducer,
-  // initialState,
-  // applyMiddleware(createLogger({ stateTransformer: state => state.toJS() })), // bug
+  // todoState, // initialState,
+  applyMiddleware(createLogger({
+    stateTransformer: state => (state.toJS()), // convert Immutable object to plain JSON
+  })), // applyMiddleware(logger),
 );
 
 export default store;

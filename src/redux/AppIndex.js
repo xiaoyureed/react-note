@@ -13,12 +13,10 @@ import store from './store';
 // );
 
 const AppIndex = () => (
-  <div>
-    <Provider store={store}>
-      {/* Stateless Component，负责所有 View 的进入点 */}
-      <Main />
-    </Provider>
-  </div>
+  <Provider store={store}>
+    {/* Stateless Component，负责所有 View 的进入点 */}
+    <Main />
+  </Provider>
 );
 
 export default AppIndex;

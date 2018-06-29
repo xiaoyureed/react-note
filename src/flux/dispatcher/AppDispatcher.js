@@ -8,7 +8,7 @@ import { Dispatcher } from 'flux';
 class DispatcherClass extends Dispatcher {
   /**
    * dispatch出来一个action
-   * @param {*} action action
+   * @param action action
    */
   handleAction(action) {
     this.dispatch({

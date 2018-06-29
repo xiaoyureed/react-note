@@ -4,7 +4,7 @@ import TodoHeader from '../../components/TodoHeader';
 import { changeText, createTodo } from '../../actions/todoActions';
 
 const mapStateToProps = state => ({
-  todo: state.getIn(['todo', 'todo']),
+  todo: state.getIn(['todo', 'todo']), // 将当前组件需要的state匹配到props中给comp用
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,9 +21,8 @@ const mapDispatchToProps = dispatch => ({
  * 连接React组件与 Redux store, 包在容器组件的外一层
  */
 export default connect(
-  // 参数1: func, 返回object(props属性: props值)
+  // 参数1: func, 返回object(props属性: props值)给当前comp用
   mapStateToProps,
-  // 参数2: 第二个参数也是一个函数，返回一个对象，对象的键同样是prop的属性名，值是一个redux的dispatch，
-  // 当这个prop属性被用于触发时，dispatch会改变redux中state的值。
+  // 参数2: 函数，返回一个对象(内含多个方法)，对象的键同样是prop的属性名，值是dispatch一个action，
   mapDispatchToProps,
 )(TodoHeader);

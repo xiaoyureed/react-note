@@ -5,7 +5,7 @@ import { deleteTodo } from '../../actions';
 
 export default connect(
   state => ({
-    todos: state.getIn(['todo', 'todos'])
+    todos: state.getIn(['todo', 'todos']),
   }),
   dispatch => ({
     onDeleteTodo: index => () => (

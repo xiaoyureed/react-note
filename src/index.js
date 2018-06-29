@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// react-router official demos
 // import BasicExample from './router/BasicExample';
 // import ParamExample from './router/ParamExample';
 // import AuthExample from './router/AuthExample';
@@ -17,7 +18,7 @@ import ReactDOM from 'react-dom';
 // import AppIndex from './components/App';
 
 // flux
-// import App from './flux/index';
+// import App from './flux';
 
 // redux
 import AppIndex from './redux/AppIndex'; // bug

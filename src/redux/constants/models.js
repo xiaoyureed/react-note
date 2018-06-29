@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-export const TodoState = Immutable.fromJS({
+const TodoState = Immutable.fromJS({
   todos: [],
   todo: {
     id: '',
@@ -9,3 +9,5 @@ export const TodoState = Immutable.fromJS({
     completed: false,
   },
 });
+
+export default TodoState;

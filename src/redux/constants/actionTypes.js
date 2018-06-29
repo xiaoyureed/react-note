@@ -1,6 +1,10 @@
-export const CREATE_TODO = 'CREATE_TODO';
-export const DELETE_TODO = 'DELETE_TODO';
-export const CHANGE_TEXT = 'CHANGE_TEXT';
+const actionType = {
+  CREATE_TODO: 'CREATE_TODO',
+  DELETE_TODO: 'DELETE_TODO',
+  CHANGE_TEXT: 'CHANGE_TEXT',
+};
+
+export default actionType;
 
 /*
 或是可以考虑使用 keyMirror，方便产生与 key 相同的常数
