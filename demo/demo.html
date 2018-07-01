@@ -3,10 +3,17 @@
     <!-- react用法示例, 直接引入了, webpack版本的在app目录下 -->
     <!-- 需要在server中访问， 否则报跨域错误 -->
     <head>
-            <link href="./demo.css" rel="stylesheet"/>
-        <script src="./lib/react.js"></script><!-- core lib -->
-        <script src="./lib/react-dom.js"></script><!-- 提供和dom相关功能 -->
-        <script src="./lib/browser.min.js"></script><!-- 将jsx转为js语法， 实际伤心应该放到服务器完成 “babel src --out-dir build” -->
+        <link href="./demo.css" rel="stylesheet"/>
+        <!-- core lib -->
+        <script src="./lib/react.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.4.1/umd/react.production.min.js"></script> -->
+        <!-- 提供和dom相关功能 -->
+        <script src="./lib/react-dom.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.1/umd/react-dom.production.min.js"></script> -->
+        <!-- babel.js与browser.js的关系: babel的浏览器版本为browser.js（未精简）和browser.min.js（已精简） -->
+        <!-- 将jsx转为js语法， 实际伤心应该放到服务器完成 “babel src --out-dir build” -->
+        <script src="./lib/browser.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script> -->
         <script src="./lib/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/remarkable/1.6.2/remarkable.min.js"></script>
       </head>

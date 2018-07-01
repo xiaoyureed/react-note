@@ -13,9 +13,10 @@ module.exports = {
     './src/index.js',
   ],
   output: {
-    path: `${__dirname}/dist`,
+    path: `${__dirname}/dist`, // 生成文件到哪个目录
     filename: 'index_bundle.js',
-    publicPath: '/', // 虚拟目录, 默认"/", 表示编译后的文件在 localhost:8008/, 如果是/xx, 则在 localhost:8008/xx/
+    // 这一opt, 决定生成的index.html中, 脚本引入路径
+    // publicPath: '/', // 虚拟目录, 默认"/", 表示编译后的文件在 localhost:8008/, 如果是/xx, 则在 localhost:8008/xx/
   },
   module: {
     rules: [

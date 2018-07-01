@@ -21,7 +21,10 @@ import ReactDOM from 'react-dom';
 // import App from './flux';
 
 // redux
-import AppIndex from './redux/AppIndex'; // bug
+// import AppIndex from './redux/AppIndex';
+
+// md2html
+import App from './md2html';
 
 // ReactDOM.render(<BasicExample />, document.getElementById('app'));
 // ReactDOM.render(<ParamExample />, document.getElementById('app'));
@@ -37,5 +40,9 @@ import AppIndex from './redux/AppIndex'; // bug
 // ReactDOM.render(<ModalGallery />, document.getElementById('app'));
 
 // ReactDOM.render(<AppIndex />, document.getElementById('app'));
+
 // ReactDOM.render(<App />, document.getElementById('app'));
-ReactDOM.render(<AppIndex />, document.getElementById('app'));
+
+// ReactDOM.render(<AppIndex />, document.getElementById('app'));
+
+ReactDOM.render(<App />, document.getElementById('app'));
