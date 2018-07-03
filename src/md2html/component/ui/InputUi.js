@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from './InputUi.css';
 
 /* class Input extends Component {
   constructor(props) {
@@ -25,9 +26,7 @@ import PropTypes from 'prop-types';
 } */
 
 const InputUi = ({ value, onChange }) => (
-  <div>
-    <textarea onChange={onChange} value={value} />
-  </div>
+  <textarea className={styles.input} onChange={onChange} value={value} />
 );
 
 InputUi.propTypes = {

@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');// 动态插入 bundle 好的 .js 档到 .index.html
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -22,6 +23,7 @@ module.exports = {
     rules: [
       {
         // 使用 babel-loader 将所有 .js（排除了 npm 安装的套件位置 node_modules）转译。
+        // 用法参考: http://www.ruanyifeng.com/blog/2016/01/babel.html
         test: /\.js$/, // 正则匹配
         exclude: /node_modules/, // 排除
         use: 'babel-loader', // 使用的 babel 转译规则，使用 react、es2015。
@@ -29,11 +31,18 @@ module.exports = {
           presets: ['es2015', 'react'],
         } */
       },
-      {
+      {// 这里不知道还有用没有, 因为已经配置了eslintrc文件, 存疑
         test: /\.jsx$|\.js$/,
         loader: 'eslint-loader',
         include: `${__dirname}/app`,
         exclude: /bundle\.js$/,
+      }, {
+        test: /\.css$/,
+        use: [// 更多 loader: https://webpack.js.org/guides/hot-module-replacement/#other-code-and-frameworks
+          // 一般来说需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码。
+          'style-loader',
+          'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]', // css?modules&localIdentName=[name]__[local]-[hash:base64:5]
+        ],
       },
     ],
   },
@@ -44,5 +53,8 @@ module.exports = {
     inline: true,
     port: 8008,
   },
-  plugins: [HTMLWebpackPluginConfig],
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    HTMLWebpackPluginConfig,
+  ],
 };
