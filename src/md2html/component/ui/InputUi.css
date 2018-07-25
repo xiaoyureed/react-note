@@ -1,4 +1,9 @@
 .input {
   flex: 1;
-  font-size: 2rem;
+  /* font-size: 2rem; */
+  /* font-size: 20px; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.title {
+  margin: auto 5px auto;
 }

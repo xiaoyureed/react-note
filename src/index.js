@@ -14,17 +14,20 @@ import ReactDOM from 'react-dom';
 // import RouteConfigExample from './router/RouteConfigExample';
 // import ModalGallery from './router/ModalGallery';
 
-// components
-// import AppIndex from './components/App';
+// components: 尝试组件化开发
+// import App from './components/App';
 
-// flux
+// flux: todoApp 简单版本
 // import App from './flux';
 
-// redux
-// import AppIndex from './redux/AppIndex';
+// redux: TodoApp
+import App from './redux/App';
 
 // md2html
-import App from './md2html';
+// import App from './md2html/App';
+// bootstrap
+// import App from './bootstrap/App';
+
 
 // ReactDOM.render(<BasicExample />, document.getElementById('app'));
 // ReactDOM.render(<ParamExample />, document.getElementById('app'));
@@ -38,11 +41,5 @@ import App from './md2html';
 // ReactDOM.render(<AmbiguousExample />, document.getElementById('app'));
 // ReactDOM.render(<RouteConfigExample />, document.getElementById('app'));
 // ReactDOM.render(<ModalGallery />, document.getElementById('app'));
-
-// ReactDOM.render(<AppIndex />, document.getElementById('app'));
-
-// ReactDOM.render(<App />, document.getElementById('app'));
-
-// ReactDOM.render(<AppIndex />, document.getElementById('app'));
 
 ReactDOM.render(<App />, document.getElementById('app'));

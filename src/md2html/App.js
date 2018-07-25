@@ -10,7 +10,7 @@ const App = () => (
       display: 'flex',
       boxSizing: 'border-box',
       position: 'absolute',
-      border: '3px solid green',
+      border: '2px solid green',
       top: '0',
       bottom: '0',
       left: '0',

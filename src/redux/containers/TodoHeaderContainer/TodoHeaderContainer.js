@@ -26,4 +26,5 @@ export default connect(
   mapStateToProps,
   // 参数2: 函数，返回一个对象(内含多个方法)，方法名称作为props中的属性提供，值是fn: dispatch一个action，
   mapDispatchToProps,
+  // 此外还有两个参数
 )(TodoHeader);

@@ -7,6 +7,12 @@ const action = {
       value,
     },
   }),
+  clickButtonAction: html => ({
+    type: actionType.CLICK,
+    payload: {
+      html,
+    },
+  }),
 };
 
 export default action;

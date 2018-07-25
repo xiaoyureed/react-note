@@ -41,7 +41,16 @@ module.exports = {
         use: [// 更多 loader: https://webpack.js.org/guides/hot-module-replacement/#other-code-and-frameworks
           // 一般来说需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码。
           'style-loader',
-          'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]', // css?modules&localIdentName=[name]__[local]-[hash:base64:5]
+          'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]', // css模块化， 原来的配置： css?modules&localIdentName=[name]__[local]-[hash:base64:5]
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          // 'css-loader',
+          'less-loader',
         ],
       },
     ],

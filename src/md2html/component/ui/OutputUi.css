@@ -1,3 +1,9 @@
-.output {
+.container {
   flex: 1;
+}
+.title {
+  margin: 0 5px 0;
+}
+.button {
+  padding: 0 0;
 }

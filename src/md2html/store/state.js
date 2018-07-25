@@ -1,5 +1,6 @@
 const state = {
-  value: 'Type some *markdown* here!',
+  value: '在这里输入 *markdown* ...',
+  html: '',
 };
 
 export default state;
