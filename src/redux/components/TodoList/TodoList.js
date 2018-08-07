@@ -12,12 +12,12 @@ const TodoList = ({ todos, onDeleteTodo }) => (
         {
           todos.map((todo, index) => (
             <li key={index}>
-              <span className={css.todoText}>
-                {todo.get('text')}
-              </span>
               <button className="btn btn-danger btn-sm" type="button" onClick={onDeleteTodo(index)}>
                 delete
               </button>
+              <span className={css.todoText}>
+                {todo.get('text')}
+              </span>
             </li>
           )).toJS()
         }

@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');// 动态插入 bundle 好的 .js 档到 .index.html
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, 'src/index.html'),
@@ -25,8 +26,15 @@ module.exports = {
         // 使用 babel-loader 将所有 .js（排除了 npm 安装的套件位置 node_modules）转译。
         // 用法参考: http://www.ruanyifeng.com/blog/2016/01/babel.html
         test: /\.js$/, // 正则匹配
-        exclude: /node_modules/, // 排除
-        use: 'babel-loader', // 使用的 babel 转译规则，使用 react、es2015。
+        exclude: /(node_modules|bower_components)/, // 排除
+        // 使用的 babel 转译规则，使用 react、es2015。
+        use: 'babel-loader',
+        /* use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        }, */
         /* query: {// 若是已经单独使用 .babelrc 作为 presets 设定的话，则可以省略 query
           presets: ['es2015', 'react'],
         } */
@@ -44,13 +52,52 @@ module.exports = {
           'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]', // css模块化， 原来的配置： css?modules&localIdentName=[name]__[local]-[hash:base64:5]
         ],
       },
-      {
+      /* {
+        test: /\.css$/,
+        exclude: '/node_modules/',
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: loader => [
+                require('postcss-import')({ root: loader.resourcePath }),
+                require('postcss-cssnext')(),
+                require('autoprefixer')(),
+                require('cssnano')()
+              ],
+            },
+          },
+        ],
+      }, */
+      { // 不知道为何, 这么配置less不能生效
         test: /\.less$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          {
+            loader: 'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+            options: {
+              importLoaders: 1,
+              sourceMap: true,
+            },
+          },
           // 'css-loader',
-          'less-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              importLoaders: 1,
+              sourceMap: true,
+            },
+          },
         ],
       },
     ],
@@ -59,7 +106,7 @@ module.exports = {
   // devServer 则是 webpack-dev-server 设定
   devServer: {
     // contentBase: './dist',
-    inline: true,
+    inline: true, // 浏览器刷新
     port: 8008,
   },
   plugins: [

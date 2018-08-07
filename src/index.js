@@ -28,6 +28,12 @@ import App from './redux/App';
 // bootstrap
 // import App from './bootstrap/App';
 
+// antd
+// import { DatePicker } from 'antd';
+
+// cssdemo
+// import App from './cssdemo/App';
+
 
 // ReactDOM.render(<BasicExample />, document.getElementById('app'));
 // ReactDOM.render(<ParamExample />, document.getElementById('app'));
@@ -41,5 +47,7 @@ import App from './redux/App';
 // ReactDOM.render(<AmbiguousExample />, document.getElementById('app'));
 // ReactDOM.render(<RouteConfigExample />, document.getElementById('app'));
 // ReactDOM.render(<ModalGallery />, document.getElementById('app'));
+
+// ReactDOM.render(<DatePicker />, document.getElementById('app'));
 
 ReactDOM.render(<App />, document.getElementById('app'));

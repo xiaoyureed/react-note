@@ -9,3 +9,7 @@
   -webkit-justify-content: center;
           justify-content: center;
 }
+
+.inputGroup {
+   margin-right: 5px; 
+}

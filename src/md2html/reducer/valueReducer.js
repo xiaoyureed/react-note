@@ -1,7 +1,7 @@
 import actionType from '../constant/actionType';
 
 /**
- * 逻辑处理
+ * 逻辑处理, accept old [state] & action, return new [state]
  * @param {*} state
  * @param {*} action
  */

@@ -1,0 +1,16 @@
+/* 定义全局样式 */
+/* :global(#app) {
+  height: 100%;
+} */
+
+.container {
+  /* composes: flexCenter; */ /* 继承, flexCenter 为类名 */
+  border: green solid 1px;
+  border-radius: 1%;
+  /* width: 25%; */
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
+}

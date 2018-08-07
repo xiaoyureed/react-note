@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
-// import css from './App.css';
+import less from './App.less';
 
 const App = () => (
   <div>
@@ -81,12 +81,12 @@ const App = () => (
   </div>
 );
 
-// const App = () => (
-//   <div
-//     className={css.demo}
-//   >
-//     hello
-//   </div>
-// );
+const App1 = () => (
+  <div
+    className={less.demo}
+  >
+    hello
+  </div>
+);
 
-export default App;
+export default App1;
