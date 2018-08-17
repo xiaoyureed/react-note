@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
 // import App from './flux';
 
 // redux: TodoApp
-import App from './redux/App';
+// import App from './redux/App';
 
 // md2html
 // import App from './md2html/App';
@@ -33,6 +33,13 @@ import App from './redux/App';
 
 // cssdemo
 // import App from './cssdemo/App';
+
+// intro
+import App from './intro/App';
+
+function render(element) {
+  ReactDOM.render(element, document.getElementById('app'));
+}
 
 
 // ReactDOM.render(<BasicExample />, document.getElementById('app'));
@@ -50,4 +57,4 @@ import App from './redux/App';
 
 // ReactDOM.render(<DatePicker />, document.getElementById('app'));
 
-ReactDOM.render(<App />, document.getElementById('app'));
+render(<App />);

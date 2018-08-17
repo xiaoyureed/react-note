@@ -1,0 +1,16 @@
+.showPanel {
+  border-top: 1px solid green;
+  border-bottom: 1px solid green;
+  height: 80%;
+  padding: 10px;
+}
+
+.me {
+  height: 30px;
+  /* border: 2px green solid; */
+  color: white;
+  background-color: green;
+  border-radius: 7px;
+  padding: 5px;
+  margin: 10px;
+}
